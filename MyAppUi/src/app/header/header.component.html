@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Phone Book</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto nav-links justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['../home']">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['../get-contacts']">Contacts</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" [routerLink]="['../favourite-contacts']">Fevourites</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Groups
+        </a>
+    
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border m-2 spinner-border-sm" role="status" *ngIf="!groupsLoaded">
+              <span class="sr-only" id="loading"></span>
+            </div>
+          </div>
+          <a class="dropdown-item" *ngFor="let group of groups" [routerLink]="['/get-group']" [queryParams]="{id:group.Id}">{{group.Name}}</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item"  [routerLink]="['/home']"><i class="bi bi-plus"></i>&ensp;Create New Group</a>
+        </div>
+      </li>
+      </ul>
+      <li class="form-inline my-2 my-lg-0 nav-item dropdown ">
+        <input class="form-control mr-sm-2" type="search" data-toggle="dropdown" placeholder="Search Contacts" aria-label="Search" [(ngModel)]="searchedName" (input)="foundMatches()">
+        <div class="dropdown-menu searchedItems" aria-labelledby="navbarDropdown">
+          <h1 class="dropdown-header display-6">{{contactsFound.length}} Contacts Found</h1>
+            <a class="dropdown-item" *ngFor="let contact of contactsFound" [routerLink]="['../get-contact']" [queryParams]="{id:contact.Id}">{{contact.Name}}</a>
+        </div>
+      </li>
+  </div>
+</nav>
